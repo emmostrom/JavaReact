@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.edward-m</groupId>
+    <artifactId>JavaReact</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>JavaReact</name>
+    <url>http://maven.apache.org</url>
+
+
+    <build>
+        <finalName>JavaReact</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
+                <configuration>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.bio.SocketConnector">
+                            <port>8080</port>
+                        </connector>
+                    </connectors>
+                    <overrideWebXml>dev_override_web.xml</overrideWebXml>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.29</version>
+
+                <configuration>
+                    <nodeVersion>v4.4.4</nodeVersion>
+                    <npmVersion>3.9.0</npmVersion>
+                    <installDirectory>.</installDirectory>
+                    <workingDirectory>.</workingDirectory>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>webpack</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source><![CDATA[
+                                /*
+                                 * If running in Jetty - compile jsx files when they change
+                                 * Otherwise just compile them once
+                                 */
+                                boolean isJettyRun = false
+                                List<String> goals = session.getGoals()
+                                for (String s : goals)
+                                    if (s.equals('jetty:run'))
+                                        isJettyRun = true
+
+                                if (isJettyRun) {
+                                    def proc_webpack = new ProcessBuilder(["node/node", "node_modules/webpack-dev-server/bin/webpack-dev-server.js", "--inline", "--hot", "--stdin", "--port", "9090"]).inheritIO().directory(project.getBasedir()).start()
+                                } else {
+                                    println "Compiling client code..."
+                                    def webpack = new ProcessBuilder(["node/node", "node_modules/webpack/bin/webpack.js", "-p", "--progress", "--bail"]).inheritIO().directory(project.getBasedir())
+                                    def env = webpack.environment()
+                                    env.put("WAR_NAME", project.build.finalName)
+                                    def proc_webpack = webpack.start()
+                                    proc_webpack.waitForOrKill(120000)
+                                    if(proc_webpack.exitValue() != 0)
+                                        throw new org.apache.maven.plugin.MojoFailureException("Error compiling clinet code")
+                                }
+                                ]]></source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mitre.dsmiley.httpproxy</groupId>
+            <artifactId>smiley-http-proxy-servlet</artifactId>
+            <version>1.7</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>
