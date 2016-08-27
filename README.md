@@ -11,7 +11,7 @@ Sample project incorporating React.js in a Java WAR
 * Java 7
 * Maven 3.2
 
-** Get Started
+## Get Started
 
 ```
 git clone https://github.com/emmostrom/JavaReact.git
