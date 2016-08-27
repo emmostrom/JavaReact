@@ -1,5 +1,5 @@
 # JavaReact
-Sample project incorporating React.js in a Java WAR
+Sample project incorporating React.js in a Java web appliation
 
 ## Purpose
 * Incorporate React.js into a Java web application while still using standard Maven build commands for everything.
