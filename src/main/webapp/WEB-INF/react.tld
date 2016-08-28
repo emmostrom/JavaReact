@@ -1,0 +1,10 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>React TLD</short-name>
+    <tag>
+        <name>render</name>
+        <tag-class>com.edwardm.ReactRenderTag</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+</taglib>

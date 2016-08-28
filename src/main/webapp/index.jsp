@@ -1,3 +1,5 @@
+<%@ taglib prefix="react" uri="/WEB-INF/react.tld"%>
+
 <html>
     <head>
         <script type="text/javascript" src="assets/vendor.js"></script>
@@ -5,7 +7,8 @@
     </head>
 
     <body>
-        <div id="app"></div>
+
+        <div id="app"><react:render/></div>
 
         <script src="assets/app.js"></script>
     </body>
