@@ -25,3 +25,6 @@ edit src/main/jsx/app.jsx and change `who="React"` to `who="World"` and save fil
 
 Changes to .less files will automatically get picked up as well.
 
+## Server Side Rendering
+
+See the SSR branch which requires Java 8 : https://github.com/emmostrom/JavaReact/tree/SSR
