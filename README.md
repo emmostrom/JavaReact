@@ -1,8 +1,8 @@
 # JavaReact
-Sample project incorporating React.js in a Java web appliation
+Sample project incorporating ReactJS in a Java web appliation
 
 ## Purpose
-* Incorporate React.js into a Java web application while still using standard Maven build commands for everything.
+* Incorporate ReactJS into a Java web application while still using standard Maven build commands for everything.
 * When using "mvn jetty:run" include Hot Module Reloading so changes take effect immediately without restarting server or refreshing browser page.
 * When using "mvn package" minimize all .js and .css files and include them in the .war file
 * Require no changes to server side files (like web.xml) to support development mode
