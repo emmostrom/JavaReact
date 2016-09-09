@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 var production = process.argv.reduce(function(p, c){return p || c == '-p'}, false)
 
@@ -18,6 +18,7 @@ var config = {
     output: {
         path: path.resolve(__dirname, 'target/' + process.env.WAR_NAME + '/assets'),
         filename: path.normalize('[name].js'),
+    	publicPath: 'http://localhost:9090/bundle'
     },
     module: {
         loaders: [
@@ -38,6 +39,20 @@ var config = {
     ],
     stats:{
         children: false
+    },
+    devServer: {
+        quiet: false,
+            noInfo: false,
+            stats:{
+            assets: false,
+                colors: false,
+                version: true,
+                hash: true,
+                timings: true,
+                chunks: true,
+                chunkModules: false,
+                children: false
+        }
     }
 }
 
@@ -57,28 +72,6 @@ if(production){
             }
         })
     )
-}else{
-    config.devServer = {
-        quiet: false,
-            noInfo: false,
-            stats:{
-            assets: false,
-                colors: false,
-                version: true,
-                hash: true,
-                timings: true,
-                chunks: true,
-                chunkModules: false,
-                children: false
-        }
-    }
-
-    config.output.publicPath = 'http://localhost:9090/bundle'
-
-    config.entry.hot = [
-        'webpack-dev-server/client?assets/',
-        'webpack/hot/only-dev-server'
-    ]
 }
 
 module.exports = config
