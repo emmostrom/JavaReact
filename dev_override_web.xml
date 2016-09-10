@@ -10,7 +10,7 @@
         <servlet-class>org.mitre.dsmiley.httpproxy.ProxyServlet</servlet-class>
         <init-param>
             <param-name>targetUri</param-name>
-            <param-value>http://localhost:9090/bundle</param-value>
+            <param-value>http://localhost:9090/assets</param-value>
         </init-param>
         <init-param>
             <param-name>log</param-name>

@@ -18,7 +18,7 @@ var config = {
     output: {
         path: path.resolve(__dirname, 'target/' + process.env.WAR_NAME + '/assets'),
         filename: path.normalize('[name].js'),
-    	publicPath: 'http://localhost:9090/bundle'
+    	publicPath: 'assets/'
     },
     module: {
         loaders: [
