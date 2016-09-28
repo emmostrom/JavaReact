@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "jsx": "react",
+    "types": [
+      "webpack/webpack-env"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

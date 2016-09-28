@@ -8,7 +8,7 @@ var production = process.argv.reduce(function(p, c){return p || c == '-p'}, fals
 var config = {
     context: path.join(__dirname, '/src/main/jsx'),
     entry: {
-        app:'./app.jsx',
+        app:'./app.tsx',
         vendor: [
             'babel-polyfill',
             'react', 'react-dom'
@@ -20,6 +20,9 @@ var config = {
         filename: path.normalize('[name].js'),
     	publicPath: 'assets/'
     },
+    resolve: {
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    },
     module: {
         loaders: [
             {
@@ -27,9 +30,9 @@ var config = {
                 loader: production ? ExtractTextPlugin.extract('css?sourceMap!less?sourceMap'): 'style-loader!css?sourceMap!less?sourceMap'
             },
             {
-                test: /\.jsx$/,
+                test: /\.tsx$/,
                 exclude: /(node_modules)/,
-                loaders: production ? ['babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-2'] : ['react-hot', 'babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-2']
+                loaders: production ? ['babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-2'] : ['react-hot-loader/webpack', 'awesome-typescript-loader']
             }
         ]
     },
