@@ -4,9 +4,13 @@
     "module": "commonjs",
     "sourceMap": true,
     "jsx": "react",
-    "types": [
-      "webpack/webpack-env"
-    ]
+    "baseUrl": "./",
+    "paths": {
+        "*": [
+          "node_modules/@types/*",
+          "*"
+        ]
+    }
   },
   "exclude": [
     "node_modules"

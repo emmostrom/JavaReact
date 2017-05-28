@@ -21,6 +21,7 @@ var config = {
     	publicPath: 'assets/'
     },
     resolve: {
+        root: path.join(__dirname, "node_modules"),
         extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
     module: {
@@ -32,7 +33,7 @@ var config = {
             {
                 test: /\.tsx$/,
                 exclude: /(node_modules)/,
-                loaders: production ? ['babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-2'] : ['react-hot-loader/webpack', 'awesome-typescript-loader']
+                loaders: production ? ['awesome-typescript-loader'] : ['react-hot-loader/webpack', 'awesome-typescript-loader']
             }
         ]
     },
